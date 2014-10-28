@@ -26,6 +26,8 @@ App::Application.routes.draw do
   get 'feed', to: 'activities#index', as: :feed
   root to: 'activities#index'
 
+  get ':id', to: 'profiles#show'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
