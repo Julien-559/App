@@ -12,12 +12,16 @@
 <p class="alert"><%= alert %></p> 
 
 <div>
+<%= link_to "Activity feed", feed_path %>
 <% if user_signed_in? %>
-<%= link_to current_user.full_name, edit_user_registration_path %>
+<%= link_to "Edit profile", edit_user_registration_path %>
 <%= link_to 'logout', destroy_user_session_path, method: :delete %>
+<br>
+<%= current_user.full_name %>
 <% else %>
 <%= link_to "Register", new_user_registration_path %>
 <%= link_to "Log in", new_user_session_path %>
+<br>
 <% end %>
 </div>
 <br>

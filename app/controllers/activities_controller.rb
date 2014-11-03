@@ -40,7 +40,8 @@ class ActivitiesController < ApplicationController
   # POST /activities
   # POST /activities.json
   def create
-    @activity = Activity.new(params[:activity])
+    #@activity = Activity.new(params[:activity])
+    @activity = current_user.activities.new(params[:activity])
 
     respond_to do |format|
       if @activity.save
@@ -56,8 +57,11 @@ class ActivitiesController < ApplicationController
   # PUT /activities/1
   # PUT /activities/1.json
   def update
-    @activity = Activity.find(params[:id])
-
+    #@activity = Activity.find(params[:id])
+    @activity = current_user.activities.find(params[:id])
+    if params[:activity] && params[:activity].has_key?(:user_id)
+      params[:activity].delete(:user_id) 
+    end
     respond_to do |format|
       if @activity.update_attributes(params[:activity])
         format.html { redirect_to @activity, notice: 'Activity was successfully updated.' }

@@ -1,7 +1,10 @@
 App::Application.routes.draw do
-  get "profiles/show"
 
-    as :user do
+  resources :activities
+  get 'feed', to: 'activities#index', as: :feed
+  root :to => 'activities#index'
+
+  as :user do
     get '/register', to: 'devise/registrations#new', as: :register
     get '/login', to: 'devise/sessions#new', as: :login
     get '/logout', to: 'devise/sessions#destroy', as: :logout
@@ -15,16 +18,6 @@ App::Application.routes.draw do
     delete "/logout" => 'devise/sessions#destroy', as: :destroy_user_session
   end
 
-  resources :user_friendships do
-    member do
-      put :accept
-      put :block
-    end
-  end
-
-  resources :activities
-  get 'feed', to: 'activities#index', as: :feed
-  root to: 'activities#index'
 
   get ':id', to: 'profiles#show'
 

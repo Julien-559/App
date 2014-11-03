@@ -13,12 +13,14 @@
   <tr>
     <td><%= activity.user.full_name %></td>
     <td><%= activity.title %></td>
-    <br>
     <td><%= activity.content %></td>
     <br>
     <td><%= link_to 'Show', activity %></td>
-    <td><%= link_to 'Edit', edit_activity_path(activity) %></td>
-    <td><%= link_to 'Destroy', activity, confirm: 'Are you sure?', method: :delete %></td>
+    <% if current_user==activity.user %>
+      <td><%= link_to 'Edit', edit_activity_path(activity) %></td>
+      <td><%= link_to 'Destroy', activity, confirm: 'Are you sure?', method: :delete %></td>
+    <% end %>
+    <br>
   </tr>
 <% end %>
 </table>

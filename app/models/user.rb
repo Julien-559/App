@@ -11,6 +11,10 @@ class User < ActiveRecord::Base
 
   has_many :activities
 
+  has_many :activity_requests
+  has_many :friends, through: :activity_requests#,
+                     #conditions: { activity_requests: { state: 'accepted' } }
+
   def full_name
   	first_name + " " + last_name
   end
