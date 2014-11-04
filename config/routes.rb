@@ -21,6 +21,9 @@ App::Application.routes.draw do
 
   get ':id', to: 'profiles#show'
 
+  resources :activity_requests
+  get '/activity_requests/new/:activity_id', to: 'activity_requests#new'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

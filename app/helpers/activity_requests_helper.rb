@@ -1,0 +1,2 @@
+module ActivityRequestsHelper
+end
