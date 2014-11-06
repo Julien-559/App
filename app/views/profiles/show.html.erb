@@ -1,8 +1,14 @@
 <h1><%= @user.full_name %></h1>
 <p> <%=  @user.activities.count %>
 
+<p><%= @user.full_name %> has offered the following activities</p> 
 <% @user.activities.each do |f| %>
 	<p> <%= f.title %> <%= f.content %> </p>
 	<br>
 <% end %>
 
+<p><%= @user.full_name %> has requested to join the following activities</p> 
+<% @act.each do |f| %>
+	<p> <%= f.activity.title %> <%= f.activity.content %> </p>
+	<br>
+<% end %>

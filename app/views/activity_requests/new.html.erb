@@ -7,6 +7,7 @@ Hello
 
   <%= form_for @activity_request, method: :post do |form| %>
     <div class="form form-actions">
+      <%= form.hidden_field :activity_id, value: @activity.id %>
       <%= submit_tag "Yes, Add Friend", class: 'btn btn-primary' %>
     </div>
   <% end %>

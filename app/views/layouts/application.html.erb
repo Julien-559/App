@@ -15,6 +15,7 @@
 <%= link_to "Activity feed", feed_path %>
 <% if user_signed_in? %>
 <%= link_to "Edit profile", edit_user_registration_path %>
+<%= link_to "My profile", profile_path(current_user.profile_name) %>
 <%= link_to 'logout', destroy_user_session_path, method: :delete %>
 <br>
 <%= current_user.full_name %>
