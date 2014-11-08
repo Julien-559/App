@@ -5,3 +5,20 @@
  *= require_self
  *= require_tree . 
 */
+
+body {
+	padding-top: 0px;
+}
+
+.alert {
+	margin-top: 10px;
+}
+
+.navbar-nea {
+  background-color: #FF0000;
+  border-color: #00FFFF;
+}
+
+/*.navbar-nea:hover {
+    background-color: yellow;
+}*/

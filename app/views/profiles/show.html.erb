@@ -1,6 +1,6 @@
-<h1><%= @user.full_name %></h1>
-<p> <%=  @user.activities.count %>
-
+<div class="page-header">
+  <h1><%= @user.full_name %></h1>
+</div>
 <p><%= @user.full_name %> has offered the following activities</p> 
 <% @user.activities.each do |f| %>
 	<p> <%= f.title %> <%= f.content %> </p>

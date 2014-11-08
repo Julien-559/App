@@ -2,32 +2,68 @@
 <html>
 <head>
   <title>App</title>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  
 </head>
 <body>
 
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p> 
+<!-- <p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>  -->
 
-<div>
-<%= link_to "Activity feed", feed_path %>
-<% if user_signed_in? %>
-<%= link_to "Edit profile", edit_user_registration_path %>
-<%= link_to "My profile", profile_path(current_user.profile_name) %>
-<%= link_to 'logout', destroy_user_session_path, method: :delete %>
-<br>
-<%= current_user.full_name %>
-<% else %>
-<%= link_to "Register", new_user_registration_path %>
-<%= link_to "Log in", new_user_session_path %>
-<br>
-<% end %>
-</div>
-<br>
+<nav class="navbar navbar-nea" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">NEA</a>
+    </div>
 
-<%= yield %>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav ">
+        <li><%= link_to "Activity feed", feed_path %></li>   
+      </ul>
+      <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+<!--         <li><a href="#">Link</a></li> -->
+        <% if user_signed_in? %>
+        	<li class="dropdown">
+
+          		<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> MyNEA<span class="caret"></span></a>
+          		<ul class="dropdown-menu" role="menu">
+          		<li><%= link_to "My profile", profile_path(current_user.profile_name) %></li>
+            	<li><%= link_to "Edit profile", edit_user_registration_path %></li>
+            	<li class="divider"></li>
+				<li><%= link_to 'logout', destroy_user_session_path, method: :delete %></li>
+          		</ul>
+          	<% else %>
+          		<li><%= link_to "Register", new_user_registration_path %></li>
+				<li><%= link_to "Log in", new_user_session_path %></li>
+				<% end %>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+
+<div class="container">
+		<% flash.each do |type, message| %>
+			<div class="alert">
+				<button class="close" data-dismiss="alert">×</button>
+				<%= message %>
+			</div>
+		<% end %>
+		    
+		<%= yield %>
+	</div>
 
 </body>
 </html>

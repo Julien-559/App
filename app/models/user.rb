@@ -12,11 +12,18 @@ class User < ActiveRecord::Base
   has_many :activities
 
   has_many :activity_requests
-  has_many :friends, through: :activity_requests#,
+  has_many :friends, through: :activity_requests #,
                      #conditions: { activity_requests: { state: 'accepted' } }
 
   def full_name
   	first_name + " " + last_name
+  end
+
+  def gravatar_url
+  	stripped_email = email.strip
+    downcased_email = stripped_email.downcase
+  	hash = Digest::MD5.hexdigest(downcased_email)
+ 	"http://gravatar.com/avatar/#{hash}"
   end
 
 
