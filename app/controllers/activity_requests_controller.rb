@@ -14,17 +14,12 @@ class ActivityRequestsController < ApplicationController
 	def create
 	    if params[:activity_request] && params[:activity_request].has_key?(:activity_id)
 	      @friend = current_user
-	      logger.info "beggining"
-	      logger.info "#{@friend}"
-	      logger.info "end"
 	      @activity=Activity.find(params[:activity_request][:activity_id])
 	      @user = @activity.user
-	      logger.info "beggining"
-	      logger.info "#{@user}"
-	      logger.info "end"
 	      #@activity_request = ActivityRequest.new(user: @activity.user, activity: @activity, friend: @friend)
 	      @activity_request = @user.activity_requests.new(activity: @activity, friend: @friend)
 	      @activity_request.save
+	      @activity_request.send_request_email
 	      flash[:success] = "success"
 	      redirect_to profile_path(@activity.user.profile_name)
 	    else
@@ -57,6 +52,19 @@ class ActivityRequestsController < ApplicationController
 	    # logger.info "apres"
 	    # redirect_to profile_path(@activity.user.profile_name)
 	end
+
+	def edit
+		@activity_request = ActivityRequest.find(params[:id]) #.first
+	end
+
+	def accept
+		@activity_request = ActivityRequest.find(params[:id])
+	    @activity_request[:accepted] = true
+	    logger.debug @activity_request.inspect
+	    @activity_request.save
+	    redirect_to edit_activity_request_path(@activity_request)
+	end
+
 
 
 end

@@ -12,11 +12,13 @@
   <% end %>
 
   
-  <%= f.input :title, label: "Title" %>
-  <%= f.input :content, placeholder: "Describe your activity here" %>
+  <%= f.input :title, label: "Title", :class => "help-block"%>
+  <%= f.input :content, :type => "textarea", placeholder: "Describe your activity here" %>
   <br>
-  <div class="form-actions">
-  <%= f.button :submit, "Create new activity" %>
+  <div >
+  <%= f.button :submit, "Create new activity", :class => 'btn btn-primary' %>
   </div>
 
 <% end %>
+
+<br>

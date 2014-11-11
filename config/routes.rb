@@ -18,6 +18,13 @@ App::Application.routes.draw do
     delete "/logout" => 'devise/sessions#destroy', as: :destroy_user_session
   end
 
+  resources :activity_requests do
+    member do
+      put :accept
+      put :block
+    end
+  end
+
 
   get ':id', to: 'profiles#show', as: 'profile'
 

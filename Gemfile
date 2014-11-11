@@ -13,6 +13,8 @@ gem 'simple_form'
 
 gem 'gravatar_image_tag'
 
+#gem 'state-machine'
+
 
 # Gems used only for assets and not required
 # in production environments by default.

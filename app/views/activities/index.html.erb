@@ -1,34 +1,30 @@
-<h1>Listing activities</h1>
-
-<!-- <table>
-  <tr>
-    <th>Title</th>
-    <th>Content</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr> -->
-
 <% @activities.each do |activity| %>
-  <tr>
-    <td>
-           <%= link_to image_tag(activity.user.gravatar_url), profile_path(activity.user) %>
-    <td><%= activity.user.full_name %></td>
-    <td><%= activity.title %></td>
-    <td><%= activity.content %></td>
-    <br>
-    <td><%= link_to 'Show', activity %></td>
-    <% if current_user==activity.user %>
-      <td><%= link_to 'Edit', edit_activity_path(activity) %></td>
-      <td><%= link_to 'Destroy', activity, confirm: 'Are you sure?', method: :delete %></td>
-    <% else %>
-      <td><%= link_to 'Request', new_activity_request_path(activity_id: activity), data: { activity_id: activity.id } %></td>
-    <% end %>
-    <br>
-  </tr>
+  <div class="status" >
+    <div class="row">
+      <div class="span1">
+        <%= link_to image_tag(activity.user.gravatar_url), profile_path(activity.user.profile_name) %>
+      </div>
+      <div class="span7" style="float: left">
+        <strong><%= activity.user.full_name %></strong>
+        <%= activity.title %>
+        <%= activity.content %> 
+        <div class="meta">
+          <%= link_to time_ago_in_words(activity.created_at) + " ago", activity %>    
+        </div>
+        <div class="meta">
+          <%= link_to 'Show', activity %>
+          <% if current_user==activity.user %>
+            <%= link_to 'Edit', edit_activity_path(activity) %></td>
+            <%= link_to 'Destroy', activity, confirm: 'Are you sure?', method: :delete %></td>
+          <% else %>
+            <%= link_to 'Request', new_activity_request_path(activity_id: activity), data: { activity_id: activity.id } %></td>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+<br>
 <% end %>
-</table>
 
-<br />
 
-<%= link_to 'New Activity', new_activity_path %>
+

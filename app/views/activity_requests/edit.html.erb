@@ -1,0 +1,8 @@
+<p> wesh </p>
+
+<%= @activity_request.user.profile_name %>
+
+<%= form_for @activity_request, url: accept_activity_request_path(@activity_request), method: :put do |form| %>
+<%= submit_tag "Accept Friendship", class: 'btn btn-primary' %>
+<% end %>
+

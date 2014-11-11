@@ -1,6 +1,14 @@
 <div class="page-header">
   <h1><%= @user.full_name %></h1>
 </div>
+
+<p><%= @user.full_name %> has the following activities to accept or not</p> 
+<% @act1.each do |f| %>
+	<p> <%= f.activity.title %> <%= f.activity.content %> </p>
+	<%= link_to "edit", edit_activity_request_path(f.id) %>
+	<br>
+<% end %>
+
 <p><%= @user.full_name %> has offered the following activities</p> 
 <% @user.activities.each do |f| %>
 	<p> <%= f.title %> <%= f.content %> </p>

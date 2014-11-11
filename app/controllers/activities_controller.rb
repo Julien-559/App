@@ -1,4 +1,6 @@
 class ActivitiesController < ApplicationController
+
+  helper ActivitiesHelper
   # GET /activities
   # GET /activities.json
   def index

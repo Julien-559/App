@@ -5,4 +5,9 @@ class ActivityRequest < ActiveRecord::Base
 
 	attr_accessible :activity, :user, :friend, :activity_id, :user_id, :friend_id, :accepted, :holding
 
+	def send_request_email
+		UserNotifier.activity_requested(id).deliver
+	end
+
+
 end
