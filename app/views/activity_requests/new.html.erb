@@ -1,16 +1,16 @@
-Hello
-
 <% if @activity %>
-  <h1><%= @activity.title %></h1>
-
-   <p>Activite de <%= @activity.user.full_name %>?</p>
-
+<p><%= link_to  @activity.user.full_name, profile_path(@activity.user.profile_name)%> is offering the following activity:</p>
+<h1><%= @activity.title %></h1>
+<p><%= @activity.content %></p>
+   
+<p> Are you interested? </p>
   <%= form_for @activity_request, method: :post do |form| %>
     <div class="form form-actions">
       <%= form.hidden_field :activity_id, value: @activity.id %>
-      <%= submit_tag "Yes, Add Friend", class: 'btn btn-primary' %>
+      <%= submit_tag "Yes", class: 'btn btn-primary' %>
     </div>
   <% end %>
+
 
 
 <% end %>

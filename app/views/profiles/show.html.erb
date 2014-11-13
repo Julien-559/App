@@ -2,11 +2,23 @@
   <h1><%= @user.full_name %></h1>
 </div>
 
-<p><%= @user.full_name %> has the following activities to accept or not</p> 
+<p><%= @user.full_name %> will participate to the following activities</p> 
 <% @act1.each do |f| %>
-	<p> <%= f.activity.title %> <%= f.activity.content %> </p>
-	<%= link_to "edit", edit_activity_request_path(f.id) %>
-	<br>
+<div class="row activity" style="background-color: #B0B0B0">
+      <div class="span1" style="float: left">
+        <%= link_to image_tag(f.friend.gravatar_url), profile_path(f.friend.profile_name) %>
+      </div>
+      <div class="span4" style="padding-left: 100px">
+        <strong><%= f.friend.full_name %></strong>
+        <br>
+        <%= f.activity.title %>
+        <br>
+        <%= f.activity.content %>
+        <br>
+        <%= link_to 'Show', f.activity %>
+      </div>
+</div>
+<br>
 <% end %>
 
 <p><%= @user.full_name %> has offered the following activities</p> 

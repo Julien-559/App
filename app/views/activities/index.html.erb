@@ -1,27 +1,28 @@
 <% @activities.each do |activity| %>
-  <div class="status" >
+  <div class="activity" >
     <div class="row">
-      <div class="span1">
+      <div class="span1" style="float: left">
         <%= link_to image_tag(activity.user.gravatar_url), profile_path(activity.user.profile_name) %>
       </div>
-      <div class="span7" style="float: left">
+      <div class="span4" style="padding-left: 100px">
         <strong><%= activity.user.full_name %></strong>
+        <br>
         <%= activity.title %>
+        <br>
         <%= activity.content %> 
-        <div class="meta">
-          <%= link_to time_ago_in_words(activity.created_at) + " ago", activity %>    
-        </div>
-        <div class="meta">
-          <%= link_to 'Show', activity %>
-          <% if current_user==activity.user %>
-            <%= link_to 'Edit', edit_activity_path(activity) %></td>
-            <%= link_to 'Destroy', activity, confirm: 'Are you sure?', method: :delete %></td>
-          <% else %>
-            <%= link_to 'Request', new_activity_request_path(activity_id: activity), data: { activity_id: activity.id } %></td>
-          <% end %>
-        </div>
+        
       </div>
     </div>
+    <div class="row meta", style="float: initial">
+        <%= time_ago_in_words(activity.created_at) + " ago" %>
+        <%= link_to 'Show', activity %>
+        <% if current_user==activity.user %>
+          <%= link_to 'Edit', edit_activity_path(activity) %></td>
+          <%= link_to 'Destroy', activity, confirm: 'Are you sure?', method: :delete %></td>
+        <% else %>
+          <%= link_to 'Request', new_activity_request_path(activity_id: activity), data: { activity_id: activity.id } %></td>
+        <% end %>
+      </div>
   </div>
 <br>
 <% end %>

@@ -1,0 +1,8 @@
+<p>title</p>
+
+<p><%= @user.full_name %> has the following activities to accept or not</p> 
+<% @requested_activities.each do |f| %>
+	<p> <%= f.activity.title %> <%= f.activity.content %> </p>
+	<%= link_to "edit", edit_activity_request_path(f.id) %>
+	<br>
+<% end %>

@@ -19,6 +19,11 @@ body {
   border-color: #00FFFF;
 }
 
+.activity {
+	border: solid 1px #CCC;
+	padding: 5px 20px;
+}
+
 /*.navbar-nea:hover {
     background-color: yellow;
 }*/

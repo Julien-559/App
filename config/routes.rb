@@ -25,7 +25,7 @@ App::Application.routes.draw do
     end
   end
 
-
+  resources :profiles
   get ':id', to: 'profiles#show', as: 'profile'
 
   resources :activity_requests
