@@ -20,8 +20,25 @@ body {
 }
 
 .activity {
-	border: solid 1px #CCC;
-	padding: 5px 20px;
+	border: solid 10px #CCC;
+	padding: 12px 25px;
+	margin-bottom: 1px;
+}
+
+.elements:hover{
+	color: red !important;
+	text-transform: uppercase;
+}
+
+
+
+.corps {
+	margin-right: 350px;
+	margin-left: 150px;
+}
+
+.elements:link {
+	text-decoration: line-through;
 }
 
 /*.navbar-nea:hover {

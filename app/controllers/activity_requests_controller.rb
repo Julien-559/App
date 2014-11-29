@@ -5,6 +5,11 @@ class ActivityRequestsController < ApplicationController
 			@activity=Activity.find(params[:activity_id])
 			@user=@activity.user
 			logger.info "#{@activity}"
+			if ActivityRequest.where(activity_id: @activity.id, friend_id: current_user.id).blank?
+				@activity_request = @user.activity_requests.new(activity: @activity, friend: current_user)
+			else
+				redirect_to feed_path
+			end
 			@activity_request = @user.activity_requests.new(activity: @activity, friend: current_user)
 		else
 			flash[:error] = "Friend required"
@@ -16,41 +21,19 @@ class ActivityRequestsController < ApplicationController
 	      @friend = current_user
 	      @activity=Activity.find(params[:activity_request][:activity_id])
 	      @user = @activity.user
-	      #@activity_request = ActivityRequest.new(user: @activity.user, activity: @activity, friend: @friend)
-	      @activity_request = @user.activity_requests.new(activity: @activity, friend: @friend)
-	      @activity_request.save
-	      @activity_request.send_request_email
-	      flash[:success] = "success"
-	      redirect_to profile_path(@activity.user.profile_name)
+	      if ActivityRequest.where(activity_id: @activity.id, friend_id: current_user.id).blank?
+	      	@activity_request = @user.activity_requests.new(activity: @activity, friend: @friend)
+	      	@activity_request.save
+	      	@activity_request.send_request_email
+	      	flash[:success] = "success"
+	      	redirect_to profile_path(@activity.user.profile_name)
+	      else
+	      	redirect_to feed_path
+	      end
 	    else
 	  		flash[:error] = "Didn't work"
 	  		redirect_to root_path
 	  	end
-	    #   respond_to do |format|
-	    #     if @user_friendship.new_record?
-	    #       format.html do 
-	    #         flash[:error] = "There was problem creating that friend request."
-	    #         redirect_to profile_path(@friend)
-	    #       end
-	    #       format.json { render json: @user_friendship.to_json, status: :precondition_failed }
-	    #     else
-	    #       format.html do
-	    #         flash[:success] = "Friend request sent."
-	    #         redirect_to profile_path(@friend)
-	    #       end
-	    #       format.json { render json: @user_friendship.to_json }
-	    #     end
-	    #   end
-	    # else
-	    #   flash[:error] = "Friend required"
-	    #   redirect_to root_path
-	   #end
-
-	    #if params[:activity_id]
-	    # @activity=Activity.find(params[:activity_request][:activity_id])
-	    # logger.info "#{@activity}"
-	    # logger.info "apres"
-	    # redirect_to profile_path(@activity.user.profile_name)
 	end
 
 	def edit
@@ -62,9 +45,26 @@ class ActivityRequestsController < ApplicationController
 	    @activity_request[:accepted] = true
 	    logger.debug @activity_request.inspect
 	    @activity_request.save
-	    redirect_to edit_activity_request_path(@activity_request)
+	    redirect_to profile_path(current_user.profile_name)
 	end
 
+	def block
+		ActivityRequest.find(params[:id]).delete
+		redirect_to profile_path(current_user.profile_name)
+	end
+
+	def destroy
+		@actR = ActivityRequest.find(params[:id])
+    	if current_user==@actR.user || current_user==@actR.friend
+      		@actR.destroy
+      		respond_to do |format|
+        		format.html { redirect_to activities_url }
+        		format.json { head :ok }
+      		end
+    	else
+      		redirect_to root_path
+    	end 
+    end   
 
 
 end

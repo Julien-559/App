@@ -1,8 +1,22 @@
-<p> wesh </p>
-
-<%= @activity_request.user.profile_name %>
-
+<%= @activity_request.friend.full_name %> likes your proposal.
+<br>
+<br>
+<p style="color: red;">
+<%= @activity_request.activity.title %></p>
+<br>
+<%= @activity_request.activity.content %>
+<br>
+<br>
+<div style="float:left;">
+<button>
 <%= form_for @activity_request, url: accept_activity_request_path(@activity_request), method: :put do |form| %>
-<%= submit_tag "Accept Friendship", class: 'btn btn-primary' %>
+<%= submit_tag "Accept", class: 'btn btn-primary' %>
 <% end %>
+</button>
+<button>
+<%= form_for @activity_request, url: block_activity_request_path(@activity_request), method: :put do |form| %>
+<%= submit_tag "Decline", class: 'btn btn-danger' %>
+<% end %>
+</button>
+</div>
 

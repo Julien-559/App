@@ -26,12 +26,17 @@ class ActivitiesController < ApplicationController
   # GET /activities/new
   # GET /activities/new.json
   def new
-    @activity = Activity.new
+    if current_user.blank?
+        redirect_to root_path
+    else
+      @activity = Activity.new
 
-    respond_to do |format|
+      respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @activity }
+      end
     end
+    
   end
 
   # GET /activities/1/edit
@@ -79,11 +84,16 @@ class ActivitiesController < ApplicationController
   # DELETE /activities/1.json
   def destroy
     @activity = Activity.find(params[:id])
-    @activity.destroy
-
-    respond_to do |format|
-      format.html { redirect_to activities_url }
-      format.json { head :ok }
+    @activityR = ActivityRequest.where(activity_id: @activity.id)
+    if current_user==@activity.user
+      @activity.destroy    
+      @activityR.delete_all
+      respond_to do |format|
+        format.html { redirect_to activities_url }
+        format.json { head :ok }
+      end
+    else
+      redirect_to root_path
     end
   end
 end

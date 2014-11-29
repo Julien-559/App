@@ -195,10 +195,7 @@ th {
     -webkit-box-shadow: none !important;
             box-shadow: none !important;
   }
-  a,
-  a:visited {
-    text-decoration: underline;
-  }
+
   a[href]:after {
     content: " (" attr(href) ")";
   }
@@ -913,16 +910,7 @@ a {
   color: #428bca;
   text-decoration: none;
 }
-a:hover,
-a:focus {
-  color: #2a6496;
-  text-decoration: underline;
-}
-a:focus {
-  outline: thin dotted;
-  outline: 5px auto -webkit-focus-ring-color;
-  outline-offset: -2px;
-}
+
 figure {
   margin: 0;
 }
@@ -6201,3 +6189,15 @@ button.close {
   }
 }
 /*# sourceMappingURL=bootstrap.css.map */
+
+a {
+  text-decoration: none;
+  background-color: transparent;
+  color: inherit !important;
+}
+
+a:hover {
+  background-color: transparent !important;
+  text-decoration: none;
+
+}
